@@ -1,0 +1,33 @@
+<div class="table-responsive">
+    <table class="table table-responsive-md btn-table table-borderless" width="100%">
+        <thead>
+            <tr>
+                <th style="width:20%">{{'lblTask' | translate}}</th>
+                <th style="width:20%">{{'lblParentTask' | translate}}</th>
+                <th style="width:10%">{{'lblPriority' | translate}}</th>
+                <th style="width:15%">{{'lblStartDate' | translate}}</th>
+                <th style="width:15%">{{'lblEndDate' | translate}}</th>
+                <th style="width:5%"></th>
+                <th></th>
+            </tr>
+        
+        </thead>
+        <tbody>
+            <tr>
+                <td style="overflow:hidden; width:20%" class="table-secondary text-center">{{taskDetails.task}}</td>
+                <td style="word-wrap:break-word; width:20%" class="table-secondary text-center">{{taskDetails?.selectedParentTask?.parentTask}}</td>
+                <td style="width:10%">{{taskDetails.priority}}</td>
+                <td style="width:15%">{{taskDetails.startDate | datedisplay:lang:'YYYY-MM-DD'}}</td>
+                <td style="width:15%">{{taskDetails.endDate | datedisplay:lang:'YYYY-MM-DD'}}</td>
+                <td style="width:5%">
+                    <button *ngIf="taskDetails.status != 0" type="button" class="btn btn-secondary btn-sm m-0" (click)="edit()">{{'btnEdit' | translate}}</button>
+                    <button *ngIf="taskDetails.status == 0" type="button" class="btn btn-secondary btn-sm m-0" (click)="edit()">{{'btnView' | translate}}</button>
+                </td>
+                <td>
+                    <button type="button" *ngIf="taskDetails.status != 0" class="btn btn-secondary btn-sm m-0" (click)="endTask()">{{'btnEndTask' | translate}}</button>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>

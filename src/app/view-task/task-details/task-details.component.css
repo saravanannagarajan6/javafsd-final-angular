@@ -1,0 +1,26 @@
+table{
+    border-collapse: separate;
+    border-spacing: 10px; 
+}
+
+table th, table td{
+    padding: 5px;
+}
+
+.btn-info {
+	background-color: slategray;
+	border-color: slategray;
+}
+
+.btn-secondary {
+    background-color: slategray;
+}
+
+.btn-primary {
+    background-color: slategrey;
+    border-color: slategrey;
+}
+
+.col-form-label{
+    font-weight: bold; 
+}

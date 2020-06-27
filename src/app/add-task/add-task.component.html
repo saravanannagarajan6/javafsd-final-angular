@@ -1,0 +1,139 @@
+<div *ngIf="selectedTaskId && selectedTaskId != null && !isvalidTaskId">  
+  <p class="h4">Not valid task id!!</p>
+</div>
+<!-- <div *ngIf="selectedTaskId && selectedTaskId != null && isvalidTaskId && taskModal.status == 0">    
+    <p class="h4">Task is completed. Can't be edited!!</p>
+</div> -->
+<div class="container mt-3" *ngIf="isvalidTaskId">
+  <form name="form" (ngSubmit)="taskForm.form.valid && onSubmit()" #taskForm="ngForm" novalidate>
+    <div class="form-group row">
+      <label class="control-label col-sm-2" for="pwd">{{'lblProject' | translate}}:</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" placeholder="{{'lblSearchProject' | translate}}" name="project" [(ngModel)]="taskModal.selectedProject.project"
+          #project="ngModel" [ngClass]="{ 'is-invalid': taskForm.submitted && project.invalid }" [readonly]="true" [required]="!taskModal.setParent">
+        <div *ngIf="taskForm.submitted && project.invalid" class="error">
+          <div *ngIf="project.errors.required">Project is required</div>
+        </div>
+      </div>
+      <div class="col-sm-2 m-0">
+        <button type="button" [disabled]="taskModal.setParent || taskModal?.taskId" 
+        class="btn btn-info pull-right m-1" (click)="searchProject()">{{'btnSearch' | translate}}</button>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="control-label col-sm-2" for="task">{{'lblTask' | translate}}:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="task" [(ngModel)]="taskModal.task" #task="ngModel" [ngClass]="{ 'is-invalid': taskForm.submitted && task.invalid }"
+        [required]="true" minlength="2" maxlength="199" />
+
+        <div *ngIf="taskForm.submitted && task.invalid" class="error">
+          <div *ngIf="task.errors.required">Task Name is required</div>
+          <div [hidden]="!task.hasError('minlength')">Task Name is required (minimum 2 characters)</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <!-- <div class="row border"> -->
+      <label class="control-label col-sm-2 col-md-2"></label>
+      <div class="checkbox col-sm-10 col-md-3">
+        <label><input type="checkbox" [disabled]="taskModal?.selectedParentTask?.parentId || taskModal?.taskId"
+           name="setParent" [(ngModel)]="taskModal.setParent">  {{'lblParentTask' | translate}}</label>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="control-label col-sm-2 col-md-2" for="priority">{{'btnPriority' | translate}}:</label>
+      <div class="col-sm-9 col-md-9">        
+        <input type="range" [(ngModel)]="taskModal.priority"
+          [value]="taskModal.priority" [min]="0" [max]="30" class="custom-range" name="priority">
+      </div>
+      <div class="col-sm-1 col-md-1">        
+          {{taskModal.priority}}
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="control-label col-md-2 col-sm-2" for="pwd">{{'lblParentTask' | translate}}:</label>
+      <div class="col-md-7 col-sm-7">
+        <input type="text" class="form-control" placeholder="{{'lblSearchParentTask' | translate}}" name="selectedParentTask" [(ngModel)]="taskModal.selectedParentTask.parentTask"
+          #selectedParentTask="ngModel" [ngClass]="{ 'is-invalid': taskForm.submitted && selectedParentTask.invalid }" [readonly]="true">
+        
+        <div *ngIf="taskForm.submitted && selectedParentTask.invalid" class="error">
+          <div *ngIf="selectedParentTask.errors.required">Parent Task is required</div>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-3 m-0">
+        <div class="row ml-2">
+            <button type="button" [disabled]="taskModal.setParent || taskModal.status == 0" 
+              class="btn btn-info pull-right" (click)="searchParentTask()">{{'btnSearch' | translate}}
+            </button>
+            <button *ngIf="taskModal?.selectedParentTask?.parentId" 
+              type="button" [disabled]="taskModal.setParent" 
+              class="btn btn-secondary pull-right ml-1" 
+              (click)="clearParentTask()">{{'btnClear' | translate}}
+            </button>
+        </div>
+        
+      </div>
+      
+    </div>    
+    <div class="form-group row">
+      <label class="control-label col-sm-2 col-md-2">{{'btnStartDate' | translate}}:</label>
+      
+      <div class="col-xs-6 col-md-4">
+        <input type="text" [(ngModel)]="taskModal.startDate" 
+               name="startDate" 
+               #startDate="ngModel"
+               placeholder="{{'lblStartDate' | translate}}" 
+               class="form-control" bsDatepicker
+               [bsConfig]="{dateInputFormat: 'YYYY-MM-DD'}" 
+               [isDisabled]="taskModal.setParent" 
+               [required]="!taskModal.setParent"
+               (bsValueChange)="changeStartDate($event, 'startDate')"
+               onkeydown="return false">
+        <div *ngIf="taskForm.submitted && startDate.invalid" class="error">
+          <div *ngIf="startDate.errors.required">Start Date is required</div>
+        </div>
+      </div>
+      <label class="control-label col-sm-2 col-md-2">{{'btnEndDate' | translate}}:</label>
+      <div class="col-xs-6 col-md-4">
+        <input type="text" [(ngModel)]="taskModal.endDate" 
+               name="endDate" 
+               #endDate="ngModel"
+               placeholder="{{'lblEndDate' | translate}}" 
+               class="form-control" 
+               bsDatepicker
+               [bsConfig]="{dateInputFormat: 'YYYY-MM-DD'}" 
+               [isDisabled]="taskModal.setParent" 
+               [required]="!taskModal.setParent"
+               onkeydown="return false"
+               [minDate]="taskModal.startDate | stringTodate">
+        <div *ngIf="taskForm.submitted && endDate.invalid" class="error">
+          <div *ngIf="endDate.errors.required">End Date is required</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="control-label col-sm-2" for="pwd">{{'lblUser' | translate}}:</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" placeholder="{{'lblSearchUser' | translate}}" name="selectedEmployee" [(ngModel)]="taskModal.selectedEmployee.firstName"
+          #selectedEmployee="ngModel" [ngClass]="{ 'is-invalid': taskForm.submitted && selectedEmployee.invalid }" [readonly]="true"
+          [required]="!taskModal.setParent">
+        <div *ngIf="taskForm.submitted && selectedEmployee.invalid" class="error">
+          <div *ngIf="selectedEmployee.errors.required">User is required</div>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <button type="button" [disabled]="taskModal.setParent || taskModal?.taskId" 
+          class="btn btn-info pull-right m-1" (click)="searchEmployee()">{{'btnSearch' | translate}}
+        </button>
+      </div>
+    </div>    
+    <div class="form-group row">
+        <div class="col-md-12">
+                <button type="button" [disabled]="taskModal.status == 0" class="btn btn-secondary float-right m-1" id="reset" (click)="reset()">{{'btnReset' | translate}}</button>              
+                <button type="submit" [disabled]="taskModal.status == 0" *ngIf="taskModal?.taskId == null" class="btn btn-primary float-right m-1" id="add">{{'btnAdd' | translate}}</button>
+                <button type="submit" [disabled]="taskModal.status == 0" *ngIf="taskModal?.taskId != null" class="btn btn-primary float-right m-1" id="update">{{'btnUpdate' | translate}}</button>                
+        </div>        
+    </div>
+  </form>
+  <ngx-loading [show]="loading"></ngx-loading>
+</div>

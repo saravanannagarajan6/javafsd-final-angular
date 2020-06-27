@@ -1,0 +1,16 @@
+<div class="modal-header" *ngIf="title!=''">    
+    <h4 class="modal-title" id="modal-basic-title">{{title}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+        <ul id="grouplist" class="list-group">
+                <li class="list-group-item" [ngClass]="{'active': selectedItem == item}" (click)="listClick($event, item)" *ngFor="let item of msg">
+                   {{ item.parentTask }}
+                </li>
+           </ul>
+</div>
+<div class="modal-footer">
+    <button type="button" [ngClass]="{'disabled' : selectedItem == null}"  class="btn btn-primary" (click)="selectedItem != null && confirmClick()">{{confirmLabel}}</button>
+</div>

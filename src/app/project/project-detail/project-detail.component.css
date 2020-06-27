@@ -1,0 +1,37 @@
+.list-group-horizontal .list-group-item {
+	display: inline-block;
+}
+.list-group-horizontal .list-group-item {
+	margin-bottom: 0;
+	margin-left:0;
+	margin-right: 4px;
+}
+.list-group-horizontal .list-group-item:first-child {
+	border-top-right-radius:0;
+	border-bottom-left-radius:4px;
+}
+.list-group-horizontal .list-group-item:last-child {
+	border-top-right-radius:4px;
+	border-bottom-left-radius:0;
+	border-right-width: 1px;
+}
+.list-item-color{
+    background-color: #f5f5f5
+}
+.btn-color {
+    background-color: #DDDDDD
+}
+
+.btn-info {
+	background-color: slategray;
+	border-color: slategray;
+}
+
+.btn-primary {
+    background-color: slategrey;
+    border-color: slategrey;
+}
+
+.col-form-label{
+    font-weight: bold; 
+}

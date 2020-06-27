@@ -1,0 +1,39 @@
+<div class="container">
+    <app-add-project [projectModal]="selectedProject" (addEvent)='getProjects($event)'></app-add-project>
+    <hr class="style1">
+    <div class="container" *ngIf="projectList.length > 0">
+        <div class="row">
+            <div class="col-md-5 col-sm-12">
+                <input type="text" #search (keyup)="0" class="form-control" placeholder="{{'btnSearch' | translate}}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 col-sm-12 col-xs-12">
+                <label>{{'lblSortBy' | translate}}:</label>
+                <button type="submit" class="btn btn-secondary m-2" id="fname" (click)="sort('startDate')">{{'lblStartDate' | translate}}</button>
+                <button type="submit" class="btn btn-secondary m-2" id="lname" (click)="sort('endDate')">{{'lblEndDate' | translate}}</button>
+                <button type="submit" class="btn btn-secondary m-2" id="empid" (click)="sort('priority')">{{'lblPriority' | translate}}</button>
+                <button type="submit" class="btn btn-secondary m-2" id="empid" (click)="sort('completedTasks')">{{'lblCompleted' | translate}}</button>
+            </div>
+        </div>
+        <div class="row">
+
+        </div>
+        <div *ngFor="let project of projectList | searchPipe:search.value; let i = index">
+            <hr class="style2">
+            <div class="row">
+                <div class="col-centered">
+                    <app-project-detail [projectDetail]="project" (editEvent)='editProject($event)' (deleteEvent)='deleteProject($event)'></app-project-detail>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div *ngIf="projectList.length == 0">
+        <div>
+            <p class="h4">No Projects available</p>
+        </div>
+    </div>
+    <ngx-loading [show]="loading"></ngx-loading>
+</div>

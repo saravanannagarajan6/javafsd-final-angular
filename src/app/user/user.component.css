@@ -1,0 +1,21 @@
+hr.style1 {
+	border-top: 2px solid #8c8b8b;
+}
+hr.style2 {
+	background-color: #fff;
+	border-top: 2px dotted #8c8b8b;
+}
+
+.btn-info {
+	background-color: slategray;
+	border-color: slategray;
+}
+
+.btn-secondary {
+    background-color: slategray;
+}
+
+.btn-primary {
+    background-color: slategrey;
+    border-color: slategrey;
+}

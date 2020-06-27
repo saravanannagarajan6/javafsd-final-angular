@@ -1,0 +1,36 @@
+<div class="container">        
+    <div class="container">
+        <div class="form-group row">
+            <div class="col-md-1 col-sm-1 col-xs-1">
+                <label class="mt-2">{{'lblProject' | translate}}:</label>
+            </div>            
+            <div class="col-md-3 col-sm-9 col-xs-9">
+                <input type="text" class="form-control mt-2" placeholder="{{'lblSearchProject' | translate}}" name="project"
+                       [value]="selectedProject?.project" [readonly]="true">
+            </div> 
+            <div class="col-md-1 col-sm-1 col-xs-1">          
+                <button type="button" class="btn btn-info mt-2" (click)="searchProject()">{{'btnSearch' | translate}}</button>            
+            
+            </div>
+            <div class="col-md-7 col-sm-12 col-xs-12">
+                <label class="ml-2">{{'lblSortBy' | translate}}:</label>
+                <button type="submit" class="btn btn-secondary m-2" id="fname" (click)="sort('startDate')">{{'btnStartDate' | translate}}</button>
+                <button type="submit" class="btn btn-secondary m-2" id="lname" (click)="sort('endDate')">{{'btnEndDate' | translate}}</button>
+                <button type="submit" class="btn btn-secondary m-2" id="empid" (click)="sort('priority')">{{'btnPriority' | translate}}</button>
+                <button type="submit" class="btn btn-secondary m-2" id="empid" (click)="sort('status')">{{'btnCompleted' | translate}}</button>
+            </div>           
+        </div>
+        <div *ngFor="let task of tasks; let i = index">
+            <hr class="style2">           
+            <app-task-details [taskDetails]="task" (endTaskEvent)='endTask($event)'></app-task-details>                
+        </div>
+        <div *ngIf="tasks.length == 0">
+            <hr class="style2">
+            <div>
+                <p class="h4">No Data Available</p>
+            </div>
+            
+        </div>
+    </div>
+    <ngx-loading [show]="loading"></ngx-loading>
+</div>

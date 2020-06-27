@@ -1,0 +1,43 @@
+<ul class="list-group-horizontal" style="padding: 0px;">
+  <li class="list-group-item list-group-item-secondary m-2">
+    <div class="row ml-1 mr-1">
+      <p class="font-weight-bold text-left">{{'lblProject' | translate}}:</p>
+      <p class="ml-1">{{projectDetail.project}}</p>
+    </div>
+    <div class="row ml-1 mr-1">
+      <p class="font-weight-bold text-left">{{'lblNoofTasks' | translate}}:</p>
+      <p class="ml-1">{{projectDetail.noOfTasks}}</p>
+      <p class="font-weight-bold text-right ml-3">{{'lblCompleted' | translate}}:</p>
+      <p class="ml-1">{{projectDetail.completedTasks}}</p>
+    </div>
+
+    <div class="row ml-1 mr-1">
+      <p class="font-weight-bold text-left">{{'lblStartDate' | translate}}:</p>
+      <p class="ml-1">{{projectDetail.startDate}}</p>
+      <p class="font-weight-bold text-right ml-3">{{'lblEndDate' | translate}}:</p>
+      <p class="ml-1">{{projectDetail.endDate}}</p>
+    </div>
+  </li>
+  <li class="list-group-item list-group-item-secondary m-2">
+    <div class="row ml-1 mr-1">
+      <p class="font-weight-bold text-left">{{'lblPriority' | translate}}</p>      
+    </div>
+    <div class="row ml-2 mr-2">
+      <p class="text-right ml-1">{{projectDetail.priority}}</p>
+    </div>
+    <div class="row ml-1 mr-1">
+        <p class="font-weight-bold text-left">&nbsp;</p>
+    </div>
+  </li>
+  <li class="list-group-item m-1 border-0">
+     
+          <div class="row mt-2 mr-2">
+            <button type="submit" class="btn btn-primary" id="edit" (click)="edit()">{{'btnUpdate' | translate}}</button>
+          </div>
+    
+          <div class="row mt-2  mr-2">
+            <button type="submit" class="btn btn-secondary" id="delete" (click)="delete()">{{'btnSuspend' | translate}}</button>
+          </div>
+        
+    </li>
+</ul>

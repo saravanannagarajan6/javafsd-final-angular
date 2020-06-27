@@ -1,0 +1,29 @@
+hr.style1 {
+	border-top: 2px solid #8b8b8c;
+}
+hr.style2 {
+	background-color: #fff;
+	border-top: 2px dotted #8b8b8c;
+}
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+.btn-info {
+	background-color: slategray;
+	border-color: slategray;
+}
+
+.btn-secondary {
+    background-color: slategray;
+}
+
+.btn-primary {
+    background-color: slategrey;
+    border-color: slategrey;
+}
+
+.col-form-label{
+    font-weight: bold; 
+}

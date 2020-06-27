@@ -1,0 +1,98 @@
+<div class="container mt-3">  
+  <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+    <div class="form-group row">
+      <label class="col-form-label col-sm-2" for="project">{{'lblProject' | translate}}:</label>
+      <div class="col-sm-10">      
+        <input type="text" class="form-control" name="project" 
+                [(ngModel)]="projectModal.project" 
+                #project="ngModel" 
+                [ngClass]="{ 'is-invalid': f.submitted && project.invalid }"
+                required minlength="2" maxlength="199"/>
+
+        <div *ngIf="f.submitted && project.invalid" class="error">
+            <div *ngIf="project.errors.required">Project Name is required</div>
+            <div [hidden]="!project.hasError('minlength')">Project Name is required (minimum 2 characters)</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+        <!-- <div class="row border"> -->
+            <label class="col-form-label col-sm-2 col-md-2"></label>
+              <div class="checkbox col-sm-10 col-md-3">
+                <label><input type="checkbox" name="setStartData" [(ngModel)]="projectModal.setDate"> {{'lblSetStartandEndDate' | translate}}</label>        
+              </div>
+              <div class="col-xs-6 col-md-4">
+                <input type="text" [(ngModel)]="projectModal.startDate" name="startDate" 
+                        placeholder="{{'lblStartDate' | translate}}" 
+                        class="form-control" 
+                        bsDatepicker [bsConfig]="{dateInputFormat: 'YYYY-MM-DD'}"
+                        [isDisabled]="!projectModal.setDate" onkeydown="return false"
+                        (bsValueChange)="changeStartDate($event, 'startDate')"
+                        required>                        
+                 <!--  <div *ngIf="f.submitted && startDate.invalid" class="error">
+                      <div *ngIf="startDate.errors.required">Start Date is required</div>
+                  </div>  -->       
+              </div>
+              <div class="col-xs-6 col-md-3">
+                <input type="text" [(ngModel)]="projectModal.endDate" name="endDate" 
+                        placeholder="{{'lblEndDate' | translate}}" 
+                        class="form-control" 
+                        bsDatepicker [bsConfig]="{dateInputFormat: 'YYYY-MM-DD'}"                        
+                        [isDisabled]="!projectModal.setDate"
+                        onkeydown="return false"
+                        [minDate]="projectModal.startDate | stringTodate"
+                        required>
+                        
+                 <!--  <div *ngIf="endDate && endDate.invalid" class="error">
+                      <div *ngIf="endDate.errors.required">End Date is required</div>
+                  </div> -->
+              </div>
+            <!-- </div>    -->
+            <!-- <div *ngIf="error.isError" class="alert alert-danger">
+                    {{ error.errorMessage }}
+                 </div> -->
+    </div>
+    <div class="form-group row">
+        <label class="col-form-label col-sm-2 col-md-2" for="project">{{'lblPriority' | translate}}:</label>
+        <div class="col-sm-9 col-md-9">
+          <input type="range" [(ngModel)]="projectModal.priority"
+          [ngModelOptions]="{standalone: true}" [min]="0" [max]="30" class="custom-range" id="formControlRange">
+        </div>
+        <div class="col-sm-1 col-md-1">        
+            {{projectModal.priority}}
+        </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-form-label col-sm-2" for="pwd">{{'lblManager' | translate}}:</label>
+      
+          <!-- <div class="row"> -->
+              <div class="col-sm-8">          
+                  <input type="text" class="form-control" placeholder="Enter manager" name="selectedEmployee"
+                      [(ngModel)]="projectModal 
+                                   && projectModal.selectedEmployee 
+                                   && projectModal.selectedEmployee.firstName" 
+                      #selectedEmployee="ngModel"                    
+                      [ngClass]="{ 'is-invalid': f.submitted && selectedEmployee.invalid }"  
+                      [readonly]="true" 
+                      required>
+                      <div *ngIf="f.submitted && selectedEmployee.invalid" class="error">
+                          <div *ngIf="selectedEmployee.errors.required">{{'lblManagerRequired' | translate}}</div>
+                      </div>
+
+              </div>                             
+              <div class="col-sm-2">          
+                  <button type="button" class="btn btn-info float-right" (click)="searchEmployee()">{{'btnSearch' | translate}}</button>
+              </div>
+          <!-- </div> -->
+            
+    </div>
+    <div class="form-group row">
+        <div class="col-md-12">
+                <button type="button" class="btn btn-secondary float-right m-1" id="reset" (click)="reset()">{{'btnReset' | translate}}</button>              
+                <button *ngIf="projectModal?.projectId == null" type="submit" class="btn btn-primary float-right m-1" id="add">{{'btnAdd' | translate}}</button>
+                <button *ngIf="projectModal?.projectId != null" type="submit" class="btn btn-primary float-right m-1" id="add">{{'btnUpdate' | translate}}</button>                
+        </div>        
+    </div>
+  </form>
+
+</div>

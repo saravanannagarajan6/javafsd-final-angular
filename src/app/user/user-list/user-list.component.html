@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-9 col-md-10">
+      <ul class="list-group">
+        <li class="list-group-item list-group-item-secondary m-1">{{employee.firstName}}</li>
+        <li class="list-group-item list-group-item-secondary m-1">{{employee.lastName}}</li>
+        <li class="list-group-item list-group-item-secondary m-1">{{employee.employeeId}}</li>
+      </ul>      
+    </div>
+    <div class="col-xs-3 col-md-2">
+      <div class="row mt-2">
+        <button type="submit" class="btn btn-primary" id="edit" (click)="edit()">{{'btnEdit' | translate}}</button>
+      </div>
+
+      <div class="row mt-2">
+        <button type="submit" class="btn btn-secondary" id="delete" (click)="delete()">{{'btnDelete' | translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>

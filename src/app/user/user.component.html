@@ -1,0 +1,34 @@
+<div class="container">
+    <app-addUser [employee] = "selectedEmployee" 
+    (addEvent) = 'getEmployees($event)'></app-addUser>
+    <hr class="style1">
+    <div *ngIf="employees.length == 0;else other_content">
+        <div>
+            <p class="h4">No Users available</p>
+        </div>
+    </div>
+    <ng-template #other_content>
+            <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <input type="text" #search (keyup)="0" class="form-control" placeholder="{{'btnSearch' | translate}}">
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <label>{{'lblSortBy' | translate}}:</label>
+                            <button type="submit" class="btn btn-secondary m-1" id="fname" (click) = "sort('firstName')">{{'lblFirstName' | translate}}</button>
+                            <button type="submit" class="btn btn-secondary m-1" id="lname" (click) = "sort('lastName')">{{'lblLastName' | translate}}</button>
+                            <button type="submit" class="btn btn-secondary m-1" id="empid" (click) = "sort('employeeId')">{{'btnId' | translate}}</button>
+                        
+                        </div>
+                    </div>
+                </div>
+                <div *ngFor="let employee of employees | searchPipe:search.value; let i = index">
+                    <hr class="style2">
+                    <app-user-list [employee]="employee" (editEvent)='editEmployee($event)'
+                    (deleteEvent)='deleteEmployee($event)'></app-user-list>
+                </div>
+    </ng-template>
+    
+   
+    <ngx-loading [show]="loading"></ngx-loading>
+</div>
