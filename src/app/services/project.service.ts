@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class ProjectService {
-    baseUrl: string = 'http://localhost:4201/'
+    baseUrl: string = 'http://localhost:8080/'
     constructor(public http: HttpClient) { }
     getProjects(): Observable<any> {
         return this.http.get(this.baseUrl+ "viewProject");

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class ParentTaskService {
-    baseUrl: string = 'http://localhost:4201/'
+    baseUrl: string = 'http://localhost:8080/'
     constructor(public http: HttpClient) { }
     getParentTasks(): Observable<any> {
         return this.http.get(this.baseUrl);
